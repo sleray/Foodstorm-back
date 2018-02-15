@@ -20,6 +20,6 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
-        return "FoodStorm Backend is online and deployed automatically by Jenkins ! Cheers !";
+        return "FoodStorm Backend is online and deployed automatically by Jenkins ! Cheers ! Featuring BG";
     }
 }
