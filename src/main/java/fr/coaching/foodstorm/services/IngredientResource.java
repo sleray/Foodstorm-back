@@ -19,7 +19,7 @@ public class IngredientResource {
 
 	@GET
 	@Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Ingredient getIngredientById(@PathParam("id") Long id) {
 		//get the fake ingredient
 		Ingredient sample = new Ingredient(id,"Haricots verts",new TypeIngredient(123L,"Légumes"));
@@ -30,7 +30,7 @@ public class IngredientResource {
 	}
 	
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Ingredient> getAllIngredients() {
 		List<Ingredient> ingredients = new ArrayList<>();
 		
