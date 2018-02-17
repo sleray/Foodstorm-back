@@ -3,7 +3,9 @@ package fr.coaching.foodstorm.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -40,6 +42,15 @@ public class IngredientResource {
 		ingredients.add(new Ingredient(6L,"Ingrédient 6", new TypeIngredient(3L,"Type 3")));
 		
 		return ingredients;
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String saveIngredient(Ingredient ingredient) {
+		
+		//Do real things...
+		
+		return "ok";
 	}
 	
 }
