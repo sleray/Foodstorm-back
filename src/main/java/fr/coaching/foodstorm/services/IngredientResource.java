@@ -16,7 +16,7 @@ public class IngredientResource {
     @Produces(MediaType.APPLICATION_JSON)
 	public Ingredient getIngredientById(Long id) {
 		Ingredient sample = new Ingredient();
-		sample.setId(1234L);
+		sample.setId(id);
 		sample.setName("Haricots verts");
 		TypeIngredient type = new TypeIngredient();
 		type.setId(123L);
