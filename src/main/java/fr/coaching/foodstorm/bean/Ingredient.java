@@ -21,6 +21,17 @@ public class Ingredient {
 		return id;
 	}
 	/**
+	 * @param id
+	 * @param name
+	 * @param type
+	 */
+	public Ingredient(Long id, String name, TypeIngredient type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+	}
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {

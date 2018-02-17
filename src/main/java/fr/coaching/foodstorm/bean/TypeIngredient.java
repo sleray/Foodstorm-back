@@ -24,6 +24,15 @@ public class TypeIngredient implements Serializable{
 		return id;
 	}
 	/**
+	 * @param id
+	 * @param name
+	 */
+	public TypeIngredient(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
