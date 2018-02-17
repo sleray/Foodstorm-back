@@ -1,4 +1,4 @@
-package fr.coaching.foodstorm;
+package fr.coaching.foodstorm.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
  * Root resource (exposed at "testback" path)
  */
 @Path("testback")
-public class MyResource {
+public class TestBackendResource {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
