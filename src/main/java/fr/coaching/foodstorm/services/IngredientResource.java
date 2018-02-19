@@ -13,7 +13,8 @@ import javax.ws.rs.core.MediaType;
 
 import fr.coaching.foodstorm.bean.Ingredient;
 import fr.coaching.foodstorm.bean.TypeIngredient;
-
+import io.swagger.annotations.Api;
+@Api
 @Path("ingredients")
 public class IngredientResource {
 
