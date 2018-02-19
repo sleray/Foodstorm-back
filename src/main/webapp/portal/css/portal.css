@@ -1,0 +1,14 @@
+.card {
+    box-shadow: 5px 10px #888888;
+    height:150px;
+    width:500px;
+    float:left;
+    margin : 10px;
+    border : 1px solid black;
+    align : center;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
