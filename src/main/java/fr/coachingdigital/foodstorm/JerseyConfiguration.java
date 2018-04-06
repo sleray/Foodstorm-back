@@ -9,7 +9,9 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
+import fr.coachingdigital.foodstorm.controller.GroupIngredientController;
 import fr.coachingdigital.foodstorm.controller.IngredientController;
+import fr.coachingdigital.foodstorm.controller.TypeIngredientController;
 
 /**
  * @author sleray
@@ -25,6 +27,8 @@ public class JerseyConfiguration extends ResourceConfig {
 	@PostConstruct
 	public void setUp() {
 		register(IngredientController.class);
+		register(TypeIngredientController.class);
+		register(GroupIngredientController.class);
 		register(GenericExceptionMapper.class);
 	}
 }

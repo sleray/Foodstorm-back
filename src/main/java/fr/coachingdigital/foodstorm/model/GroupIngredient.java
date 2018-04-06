@@ -1,8 +1,4 @@
 package fr.coachingdigital.foodstorm.model;
-/**
- * 
- */
-
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,41 +9,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
+
 /**
+ * 
+ */
+
+/**
+ * A group ingredient helps to define a Menu. some ingredient can be cooked as main or at dessert.
  * @author sleray
  *
  */
 @Entity
-@Table(name = "TYPE_INGREDIENT")
-public class TypeIngredient implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6988508328892137646L;
+@Table(name = "GROUP_INGREDIENT")
+public class GroupIngredient implements Serializable{
+
+
+	private static final long serialVersionUID = 2492923586519001757L;
 	@Id
-	@Column(name = "INGR_TYP_ID")
+	@Column(name = "INGR_GROUP_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(name = "INGR_TYP_NAME")
+	@Column(name = "INGR_GROUP_NAME")
 	private String name;
-	@OneToMany(mappedBy = "type", cascade = CascadeType.MERGE)
+	@ManyToMany(mappedBy="groups")    
 	private Set<Ingredient> ingredients;
 
-	public TypeIngredient() {
-		
-	}
+
 	/**
-	 * @param id
-	 * @param name
+	 * default
 	 */
-	public TypeIngredient(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	public GroupIngredient() {
+		
 	}
 	
 	/**
@@ -74,5 +72,15 @@ public class TypeIngredient implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	/**
+	 * tostring
+	 */
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", name=" + name + "]";
+	}
+	
+	
+	
 }

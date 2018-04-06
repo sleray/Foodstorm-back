@@ -1,13 +1,17 @@
 package fr.coachingdigital.foodstorm.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,19 +26,23 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "ingredient")
+@Table(name = "INGREDIENT")
 public class Ingredient implements Serializable{
 
 
 	private static final long serialVersionUID = 2492923586519001757L;
 	@Id
+	@Column(name = "INGR_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(name = "name")
+	@Column(name = "INGR_NAME")
 	private String name;
 	@ManyToOne
-	@JoinColumn(name="type", nullable = false)
+	@JoinColumn(name="INGR_TYP_ID", nullable = false)
 	private TypeIngredient type;
+	@ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "INGREDIENT_GROUP_INGREDIENT")
+	private Set<GroupIngredient> groups;
 
 	/**
 	 * default
@@ -105,6 +113,18 @@ public class Ingredient implements Serializable{
 	@Override
 	public String toString() {
 		return "Ingredient [id=" + id + ", name=" + name + ", type=" + type + "]";
+	}
+	/**
+	 * @return the groups
+	 */
+	public Set<GroupIngredient> getGroups() {
+		return groups;
+	}
+	/**
+	 * @param groups the groups to set
+	 */
+	public void setGroups(Set<GroupIngredient> groups) {
+		this.groups = groups;
 	}
 	
 	

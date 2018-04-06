@@ -35,6 +35,11 @@ public class IngredientService {
 		return ingredientRepository.findById(id);
 		
 	}
+	public List<Ingredient> getIngredientByName(String name) {
+		
+		return ingredientRepository.findByName(name);
+		
+	}
 	
 	public List<Ingredient> getAllIngredients() {
 		Iterable<Ingredient> datas = ingredientRepository.findAll();
@@ -52,13 +57,13 @@ public class IngredientService {
 		
 	}
 
-	public void updateIngredient( Ingredient ingredient) {
-		ingredientRepository.save(ingredient);
+	public Ingredient updateIngredient( Ingredient ingredient) {
+		return ingredientRepository.save(ingredient);
 		
 	}
 
-	public void addIngredient(Ingredient ingredient) {
-		ingredientRepository.save(ingredient);
+	public Ingredient addIngredient(Ingredient ingredient) {
+		return ingredientRepository.save(ingredient);
 		
 	}
 }
