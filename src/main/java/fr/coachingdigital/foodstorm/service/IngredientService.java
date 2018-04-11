@@ -41,6 +41,8 @@ public class IngredientService {
 		
 	}
 	
+	
+	
 	public List<Ingredient> getAllIngredients() {
 		Iterable<Ingredient> datas = ingredientRepository.findAll();
 		List<Ingredient> result = new ArrayList<>();

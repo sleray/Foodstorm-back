@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import fr.coachingdigital.foodstorm.controller.GroupIngredientController;
 import fr.coachingdigital.foodstorm.controller.IngredientController;
+import fr.coachingdigital.foodstorm.controller.MenuController;
 import fr.coachingdigital.foodstorm.controller.TypeIngredientController;
 
 /**
@@ -29,6 +30,7 @@ public class JerseyConfiguration extends ResourceConfig {
 		register(IngredientController.class);
 		register(TypeIngredientController.class);
 		register(GroupIngredientController.class);
+		register(MenuController.class);
 		register(GenericExceptionMapper.class);
 	}
 }

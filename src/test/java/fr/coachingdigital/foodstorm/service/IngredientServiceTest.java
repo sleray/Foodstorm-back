@@ -69,6 +69,8 @@ public class IngredientServiceTest {
 		Assert.assertTrue(result2.size() == 1);
 		//Deleting 
 		ingredientService.deleteIngredient(result.get().getId());
+		typeIngredientService.deleteTypeIngredient(viande.getId());
+		groupIngredientService.deleteGroupIngredient(main.getId());
 		//checking if we can't find it anymore
 		Optional<Ingredient> result3 = ingredientService.getIngredientById(poulet.getId());
 		Assert.assertFalse(result3.isPresent());
