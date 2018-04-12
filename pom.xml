@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>fr.coachingdigital</groupId>
-	<artifactId>foodstorm</artifactId>
+	<artifactId>foodstorm-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>foodstorm</name>
+	<name>foodstorm-back</name>
 	<description>Foodstorm backend (using spring boot)</description>
 
 	<parent>
@@ -59,7 +59,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>foodstorm</finalName>
+	<finalName>foodstorm-back</finalName>
 		
 	</build>
 
