@@ -2,17 +2,15 @@ package fr.coachingdigital.foodstorm.controller;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.coachingdigital.foodstorm.model.Ingredient;
 import fr.coachingdigital.foodstorm.service.MenuService;
 
-@Component
-@Path("/menu")
+@RestController
+@RequestMapping("/menu")
 public class MenuController {
 
 	private final MenuService menuService;
@@ -22,9 +20,8 @@ public class MenuController {
 	}
 
 
-	@GET
-	@Produces("application/json")
-	@Path("/random")
+
+	@RequestMapping(value = "/random", method= RequestMethod.GET)
 	public List<Ingredient> getRandomMenu() {
 		return menuService.getRandomMenu();
 		

@@ -1,26 +1,21 @@
 package fr.coachingdigital.foodstorm.controller;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.coachingdigital.foodstorm.model.Ingredient;
 import fr.coachingdigital.foodstorm.service.IngredientService;
 
-@Component
-@Path("/ingredients")
+@RestController
+@RequestMapping("/ingredients")
 public class IngredientController {
 
 	private final IngredientService ingredientService;
@@ -29,46 +24,39 @@ public class IngredientController {
 		this.ingredientService = ingredientService;
 	}
 
-	@GET
-	@Produces("application/json")
+	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public Collection<Ingredient> getAllIngredients() {
 
 		return ingredientService.getAllIngredients();
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/{oid}")
-	public Response getIngredient(@PathParam("oid") Long oid) {
-		Optional<Ingredient> result = ingredientService.getIngredientById(oid);
+	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
+	public ResponseEntity<String> getIngredient(@PathVariable("id") Long id) {
+		Optional<Ingredient> result = ingredientService.getIngredientById(id);
 		if (result.isPresent()) {
-			return Response.status(Response.Status.ACCEPTED).entity(result.get()).build();
+			return new ResponseEntity<String>("Ingredient found", HttpStatus.FOUND);
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			return new ResponseEntity<String>("Ingredient not found", HttpStatus.NOT_FOUND);
 		}
 
+
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	public Response addIngredient(Ingredient ingredient) {
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
 		ingredientService.addIngredient(ingredient);
-		return Response.created(URI.create("/" + ingredient.getId())).build();
+		return new ResponseEntity<String>("Ingredient created successfully", HttpStatus.CREATED);
 	}
 
-	@PUT
-	@Consumes("application/json")
-
-	public Response updateIngredient(Ingredient ingredient) {
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateIngredient(@RequestBody Ingredient ingredient) {
 		ingredientService.updateIngredient(ingredient);
-		return Response.noContent().build();
+		return new ResponseEntity<String>("Ingredient updated successfully", HttpStatus.OK);
 	}
 
-	@DELETE
-	@Path("/{oid}")
-	public Response deleteIngredient(@PathParam("oid") Long oid) {
-		ingredientService.deleteIngredient(oid);
-		return Response.ok().build();
+	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
+	public ResponseEntity<String> deleteIngredient(@PathVariable("id") Long id) {
+		ingredientService.deleteIngredient(id);
+		return new ResponseEntity<String>("Ingredient deleted successfully", HttpStatus.OK);
 	}
 }

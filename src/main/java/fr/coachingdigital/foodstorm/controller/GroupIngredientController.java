@@ -1,26 +1,21 @@
 package fr.coachingdigital.foodstorm.controller;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.coachingdigital.foodstorm.model.GroupIngredient;
 import fr.coachingdigital.foodstorm.service.GroupIngredientService;
 
-@Component
-@Path("/groupingredients")
+@RestController
+@RequestMapping("/groupingredients")
 public class GroupIngredientController {
 
 	private final GroupIngredientService groupIngredientService;
@@ -29,46 +24,38 @@ public class GroupIngredientController {
 		this.groupIngredientService = groupIngredientService;
 	}
 
-	@GET
-	@Produces("application/json")
+	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public Collection<GroupIngredient> getAllGroupIngredients() {
 
 		return groupIngredientService.getAllGroupIngredients();
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/{oid}")
-	public Response getGroupIngredient(@PathParam("oid") Long oid) {
-		Optional<GroupIngredient> result = groupIngredientService.getGroupIngredientById(oid);
+	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
+	public ResponseEntity<String> getGroupIngredient(@PathVariable("id") Long id) {
+		Optional<GroupIngredient> result = groupIngredientService.getGroupIngredientById(id);
 		if (result.isPresent()) {
-			return Response.status(Response.Status.ACCEPTED).entity(result.get()).build();
+			return new ResponseEntity<String>("GroupIngredient found", HttpStatus.FOUND);
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			return new ResponseEntity<String>("GroupIngredient not found", HttpStatus.NOT_FOUND);
 		}
 
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	public Response addGroupIngredient(GroupIngredient groupIngredient) {
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<String> addGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
 		groupIngredientService.addGroupIngredient(groupIngredient);
-		return Response.created(URI.create("/" + groupIngredient.getId())).build();
+		return new ResponseEntity<String>("GroupIngredient created successfully", HttpStatus.OK);
 	}
 
-	@PUT
-	@Consumes("application/json")
-
-	public Response updateGroupIngredient(GroupIngredient groupIngredient) {
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	public ResponseEntity<String> updateGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
 		groupIngredientService.updateGroupIngredient(groupIngredient);
-		return Response.noContent().build();
+		return new ResponseEntity<String>("GroupIngredient updated successfully", HttpStatus.OK);
 	}
 
-	@DELETE
-	@Path("/{oid}")
-	public Response deleteGroupIngredient(@PathParam("oid") Long oid) {
-		groupIngredientService.deleteGroupIngredient(oid);
-		return Response.ok().build();
+	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
+	public ResponseEntity<String> deleteGroupIngredient(@PathVariable("id") Long id) {
+		groupIngredientService.deleteGroupIngredient(id);
+		return new ResponseEntity<String>("GroupIngredient deleted successfully", HttpStatus.OK);
 	}
 }

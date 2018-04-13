@@ -1,26 +1,21 @@
 package fr.coachingdigital.foodstorm.controller;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.coachingdigital.foodstorm.model.TypeIngredient;
 import fr.coachingdigital.foodstorm.service.TypeIngredientService;
 
-@Component
-@Path("/typeingredients")
+@RestController
+@RequestMapping("/typeingredients")
 public class TypeIngredientController {
 
 	private final TypeIngredientService typeIngredientService;
@@ -29,46 +24,37 @@ public class TypeIngredientController {
 		this.typeIngredientService = typeIngredientService;
 	}
 
-	@GET
-	@Produces("application/json")
+	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public Collection<TypeIngredient> getAllTypeIngredients() {
-
 		return typeIngredientService.getAllTypeIngredients();
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/{oid}")
-	public Response getTypeIngredient(@PathParam("oid") Long oid) {
-		Optional<TypeIngredient> result = typeIngredientService.getTypeIngredientById(oid);
+	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
+	public ResponseEntity<String> getTypeIngredient(@PathVariable("id") Long id) {
+		Optional<TypeIngredient> result = typeIngredientService.getTypeIngredientById(id);
 		if (result.isPresent()) {
-			return Response.status(Response.Status.ACCEPTED).entity(result.get()).build();
+			return new ResponseEntity<String>("TypeIngredient found", HttpStatus.FOUND);
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			return new ResponseEntity<String>("TypeIngredient not found", HttpStatus.NOT_FOUND);
 		}
 
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	public Response addTypeIngredient(TypeIngredient typeIngredient) {
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<String> addTypeIngredient(@RequestBody TypeIngredient typeIngredient) {
 		typeIngredientService.addTypeIngredient(typeIngredient);
-		return Response.created(URI.create("/" + typeIngredient.getId())).build();
+		return new ResponseEntity<String>("TypeIngredient created successfully", HttpStatus.CREATED);
 	}
 
-	@PUT
-	@Consumes("application/json")
-
-	public Response updateTypeIngredient(TypeIngredient typeIngredient) {
+	@RequestMapping(value = "/", method= RequestMethod.PUT)
+	public ResponseEntity<String> updateTypeIngredient(TypeIngredient typeIngredient) {
 		typeIngredientService.updateTypeIngredient(typeIngredient);
-		return Response.noContent().build();
+		return new ResponseEntity<String>("TypeIngredient updated successfully", HttpStatus.OK);
 	}
 
-	@DELETE
-	@Path("/{oid}")
-	public Response deleteTypeIngredient(@PathParam("oid") Long oid) {
-		typeIngredientService.deleteTypeIngredient(oid);
-		return Response.ok().build();
+	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
+	public ResponseEntity<String> deleteTypeIngredient(@PathVariable("id") Long id) {
+		typeIngredientService.deleteTypeIngredient(id);
+		return new ResponseEntity<String>("TypeIngredient deleted successfully", HttpStatus.OK);
 	}
 }
