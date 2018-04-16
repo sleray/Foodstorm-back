@@ -31,4 +31,19 @@ public class MemberService {
 	public Optional<Member> getMemberByMail(String mail){
 		return memberRepository.findByMail(mail);
 	}
+	
+	public Member updateMember(Member member) {
+		return memberRepository.save(member);
+	}
+	public Member addMember(Member member) {
+		return memberRepository.save(member);
+	}
+	
+	public void deleteMemberById(long id) {
+		memberRepository.deleteById(id);
+	}
+	
+	public void deleteMemberByMember(Member member) {
+		memberRepository.delete(member);
+	}
 }

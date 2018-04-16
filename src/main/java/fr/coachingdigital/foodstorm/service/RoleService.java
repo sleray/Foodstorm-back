@@ -30,5 +30,20 @@ public class RoleService {
 	public List<Role> gerRoleByName(String name){
 		return roleRepository.findByName(name);
 	}
+	
+	public Role updateRole(Role role) {
+		return roleRepository.save(role);
+	}
+	
+	public Role addRole(Role role) {
+		return roleRepository.save(role);
+	}
+	
+	public void deleteRoleById(long id) {
+		roleRepository.deleteById(id);
+	}
+	public void deleteRoleByRole(Role role) {
+		roleRepository.delete(role);
+	}
 
 }

@@ -24,4 +24,19 @@ public class FamilyService {
 	public Optional<Family> getFamilyById(long id){
 		return familyRepository.findById(id);
 	}
+	
+	public Family updateFamily(Family family) {
+		return familyRepository.save(family);
+	}
+	
+	public Family addFamily(Family family) {
+		return familyRepository.save(family);
+	}
+	
+	public void deleteFamilyById(long id) {
+		familyRepository.deleteById(id);
+	}
+	public void deleteFamilyByFamily(Family family) {
+		familyRepository.delete(family);
+	}
 }
