@@ -31,26 +31,26 @@ public class GroupIngredientController {
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
-	public ResponseEntity<String> getGroupIngredient(@PathVariable("id") Long id) {
+	public ResponseEntity<GroupIngredient> getGroupIngredient(@PathVariable("id") Long id) {
 		Optional<GroupIngredient> result = groupIngredientService.getGroupIngredientById(id);
 		if (result.isPresent()) {
-			return new ResponseEntity<String>("GroupIngredient found", HttpStatus.FOUND);
+			return new ResponseEntity<GroupIngredient>(result.get(), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("GroupIngredient not found", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<GroupIngredient>(HttpStatus.NOT_FOUND);
 		}
 
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> addGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
-		groupIngredientService.addGroupIngredient(groupIngredient);
-		return new ResponseEntity<String>("GroupIngredient created successfully", HttpStatus.OK);
+	public ResponseEntity<GroupIngredient> addGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
+		GroupIngredient result = groupIngredientService.addGroupIngredient(groupIngredient);
+		return new ResponseEntity<GroupIngredient>(result, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
-		groupIngredientService.updateGroupIngredient(groupIngredient);
-		return new ResponseEntity<String>("GroupIngredient updated successfully", HttpStatus.OK);
+	public ResponseEntity<GroupIngredient> updateGroupIngredient(@RequestBody GroupIngredient groupIngredient) {
+		GroupIngredient result = groupIngredientService.updateGroupIngredient(groupIngredient);
+		return new ResponseEntity<GroupIngredient>(result, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)

@@ -1,5 +1,8 @@
 package fr.coachingdigital.foodstorm.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +32,41 @@ public class PlayController {
 	 */
 	@RequestMapping(value = "/lambda", method= RequestMethod.GET)
 	public ResponseEntity<String> playWithLambda() {
-		return new ResponseEntity<String>("Cheers !",HttpStatus.CHECKPOINT);
-
+		List<String> fruits = Arrays.asList("melon", "abricot", "fraise", "cerise");
 		
+		//Expression lambda 
+		//(fmt, arg) -> String.format(fmt, arg) appelle la méthode format de String
+	    String result = afficher(fruits, (fmt, arg) -> String.format(fmt, arg));
+	    
+	    
+	    //Référence de méthode statique. Résultat identique mais plus joli !
+	    String result2 = afficher(fruits, String::format);
+	    
+	    return new ResponseEntity<String>(result,HttpStatus.OK);
+	  }
 
+	  private static String afficher(List<String> liste, MonFormateur formateur) {
+	    int i = 0;
+	    StringBuilder sb = new StringBuilder();
+	    for (String element : liste) {
+	      i++;
+	      sb.append(formateur.formater("%3d %s%n", i, element));
+	    }
+	    return sb.toString();
+	  }
+	  
+	  /**
+		 * What about playing with streams ?
+		 * @return OK
+		 */
+		@RequestMapping(value = "/stream", method= RequestMethod.GET)
+		public ResponseEntity<String> playWithStream() {
+			//FIXME
+			return new ResponseEntity<String>("Check back later",HttpStatus.OK);
+		}
 	}
 
-}
+	@FunctionalInterface
+	interface MonFormateur {
+	  String formater(String format, Object... arguments);
+	}

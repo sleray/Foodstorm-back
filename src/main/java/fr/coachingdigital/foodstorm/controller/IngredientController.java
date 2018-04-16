@@ -31,27 +31,27 @@ public class IngredientController {
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
-	public ResponseEntity<String> getIngredient(@PathVariable("id") Long id) {
+	public ResponseEntity<Ingredient> getIngredient(@PathVariable("id") Long id) {
 		Optional<Ingredient> result = ingredientService.getIngredientById(id);
 		if (result.isPresent()) {
-			return new ResponseEntity<String>("Ingredient found", HttpStatus.FOUND);
+			return new ResponseEntity<Ingredient>(result.get(), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Ingredient not found", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Ingredient>( HttpStatus.NOT_FOUND);
 		}
 
 
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
-		ingredientService.addIngredient(ingredient);
-		return new ResponseEntity<String>("Ingredient created successfully", HttpStatus.CREATED);
+	public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
+		Ingredient result = ingredientService.addIngredient(ingredient);
+		return new ResponseEntity<Ingredient>(result, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateIngredient(@RequestBody Ingredient ingredient) {
-		ingredientService.updateIngredient(ingredient);
-		return new ResponseEntity<String>("Ingredient updated successfully", HttpStatus.OK);
+	public ResponseEntity<Ingredient> updateIngredient(@RequestBody Ingredient ingredient) {
+		Ingredient result = ingredientService.updateIngredient(ingredient);
+		return new ResponseEntity<Ingredient>(result, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
