@@ -34,7 +34,27 @@ public class Role {
 	 * default
 	 */
 	public Role() {
-		
+		super();
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 */
+	public Role(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 */
+	public Role(String name) {
+		super();
+		this.name = name;
 	}
 	
 	/**
@@ -70,7 +90,23 @@ public class Role {
 	 */
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role [id=" + id + ", name=" + name + ", members=" + members + "]";
+	}
+
+	/**
+	 * 
+	 * @return the member list
+	 */
+	public Set<Member> getMembers() {
+		return members;
+	}
+
+	/**
+	 * 
+	 * @param members the member list to set
+	 */
+	public void setMembers(Set<Member> members) {
+		this.members = members;
 	}
 	
 }
