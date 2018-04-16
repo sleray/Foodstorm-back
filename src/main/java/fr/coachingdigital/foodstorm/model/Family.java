@@ -1,10 +1,13 @@
 package fr.coachingdigital.foodstorm.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +21,33 @@ public class Family {
 	private long id;
 	@Column(name = "FAMILY_NAME")
 	private String name;
+	@ManyToMany(mappedBy="family")    
+	private Set<Member> members;
 	
 	/**
 	 * default
 	 */
 	public Family() {
-		
+		super();
+	}
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 */
+	public Family(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public Family(String name) {
+		super();
+		this.name = name;
 	}
 	
 	/**
@@ -62,5 +86,22 @@ public class Family {
 	public String toString() {
 		return "Family [id=" + id + ", name=" + name + "]";
 	}
+
+	/**
+	 * 
+	 * @return the list of member in the family
+	 */
+	public Set<Member> getMembers() {
+		return members;
+	}
+
+	/**
+	 * 
+	 * @param members set the list of member of the family
+	 */
+	public void setMembers(Set<Member> members) {
+		this.members = members;
+	}
+	
 	
 }

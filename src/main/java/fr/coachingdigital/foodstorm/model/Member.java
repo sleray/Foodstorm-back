@@ -38,7 +38,44 @@ public class Member {
 	private Set<Role> roles;
 
 	
+	/**
+	 * default
+	 */
+	public Member() {
+		super();
+	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param login
+	 * @param passwd
+	 * @param mail
+	 * @param family
+	 */
+	public Member(long id, String login, String passwd, String mail, Family family) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.passwd = passwd;
+		this.mail = mail;
+		this.family = family;
+	}
+	
+	/**
+	 * 
+	 * @param login
+	 * @param passwd
+	 * @param mail
+	 * @param family
+	 */
+	public Member(String login, String passwd, String mail, Family family) {
+		super();
+		this.login = login;
+		this.passwd = passwd;
+		this.mail = mail;
+		this.family = family;
+	}
 	/**
 	 * 
 	 * @return the id
