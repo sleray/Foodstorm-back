@@ -12,5 +12,5 @@ import fr.coachingdigital.foodstorm.model.Family;
  */
 @Repository
 public interface FamilyRepository extends CrudRepository<Family,Long> {
-
+	
 }

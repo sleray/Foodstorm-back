@@ -28,7 +28,7 @@ public class Member {
 	private String login;
 	@Column(name = "MBR_PASSWD")
 	private String passwd;
-	@Column(name = "MBR_MAIL")
+	@Column(name = "MBR_MAIL", unique=true)
 	private String mail;
 	@ManyToOne
 	@JoinColumn(name="MBR_FAMILY_ID", nullable = false)
