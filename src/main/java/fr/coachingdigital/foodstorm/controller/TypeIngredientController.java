@@ -30,26 +30,26 @@ public class TypeIngredientController {
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
-	public ResponseEntity<String> getTypeIngredient(@PathVariable("id") Long id) {
+	public ResponseEntity<TypeIngredient> getTypeIngredient(@PathVariable("id") Long id) {
 		Optional<TypeIngredient> result = typeIngredientService.getTypeIngredientById(id);
 		if (result.isPresent()) {
-			return new ResponseEntity<String>("TypeIngredient found", HttpStatus.FOUND);
+			return new ResponseEntity<TypeIngredient>(result.get(), HttpStatus.FOUND);
 		} else {
-			return new ResponseEntity<String>("TypeIngredient not found", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<TypeIngredient>(HttpStatus.NOT_FOUND);
 		}
 
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<String> addTypeIngredient(@RequestBody TypeIngredient typeIngredient) {
-		typeIngredientService.addTypeIngredient(typeIngredient);
-		return new ResponseEntity<String>("TypeIngredient created successfully", HttpStatus.CREATED);
+	public ResponseEntity<TypeIngredient> addTypeIngredient(@RequestBody TypeIngredient typeIngredient) {
+		TypeIngredient result = typeIngredientService.addTypeIngredient(typeIngredient);
+		return new ResponseEntity<TypeIngredient>(result, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/", method= RequestMethod.PUT)
-	public ResponseEntity<String> updateTypeIngredient(TypeIngredient typeIngredient) {
-		typeIngredientService.updateTypeIngredient(typeIngredient);
-		return new ResponseEntity<String>("TypeIngredient updated successfully", HttpStatus.OK);
+	public ResponseEntity<TypeIngredient> updateTypeIngredient(TypeIngredient typeIngredient) {
+		TypeIngredient result = typeIngredientService.updateTypeIngredient(typeIngredient);
+		return new ResponseEntity<TypeIngredient>(result, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
