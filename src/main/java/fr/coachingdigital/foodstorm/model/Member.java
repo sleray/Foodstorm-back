@@ -1,5 +1,6 @@
 package fr.coachingdigital.foodstorm.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -53,13 +54,14 @@ public class Member {
 	 * @param mail
 	 * @param family
 	 */
-	public Member(long id, String login, String passwd, String mail, Family family) {
+	public Member(long id, String login, String passwd, String mail, Family family, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.passwd = passwd;
 		this.mail = mail;
 		this.family = family;
+		this.roles = roles;
 	}
 	
 	/**
@@ -69,12 +71,13 @@ public class Member {
 	 * @param mail
 	 * @param family
 	 */
-	public Member(String login, String passwd, String mail, Family family) {
+	public Member(String login, String passwd, String mail, Family family, Set<Role> roles) {
 		super();
 		this.login = login;
 		this.passwd = passwd;
 		this.mail = mail;
 		this.family = family;
+		this.roles = roles;
 	}
 	/**
 	 * 
@@ -154,6 +157,21 @@ public class Member {
 	public String toString() {
 		return "Member [id=" + id + ", login=" + login + ", passwd=" + passwd + ", mail=" + mail + 
 				", family=" + family + ", roles=" + roles + "]";
+	}
+	/**
+	 * 
+	 * @return the set of role
+	 */
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * 
+	 * @param roles the set or role to set
+	 */
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
