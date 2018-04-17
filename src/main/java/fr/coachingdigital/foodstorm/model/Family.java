@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Family {
 	private long id;
 	@Column(name = "FAMILY_NAME")
 	private String name;
-	@ManyToMany(mappedBy="family")    
+	@OneToMany(mappedBy="family")    
 	private Set<Member> members;
 	
 	/**
