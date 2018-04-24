@@ -78,6 +78,13 @@
 		<finalName>foodstorm-back</finalName>
 
 	</build>
-
+	<profiles>
+		<profile>
+			<id>stagging</id>
+			<build>
+				<finalName>foodstorm-back-stagging</finalName>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
