@@ -26,14 +26,16 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/sign-in", method= RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody final String login, @RequestBody final String password) {
+	public ResponseEntity<Member> login(@RequestBody final String login, @RequestBody final String password) {
 		String token = null;
 		HttpStatus statutRetour = HttpStatus.OK;
+		Member member = null;
 		final Optional<Member> oMember = memberService.getMemberByLogin(login);
 		if(oMember.isPresent()) {
-			final Member member = oMember.get();
+			member = oMember.get();
 			if(member.getPasswd().equals(password)) {
 				token = authService.generateToken();
+				member.setToken(token);
 			}else {
 				statutRetour = HttpStatus.FORBIDDEN;
 			}
@@ -41,7 +43,7 @@ public class AuthController {
 			statutRetour = HttpStatus.NOT_FOUND;
 		}
 
-		return new ResponseEntity<String>(token, statutRetour);
+		return new ResponseEntity<Member>(member, statutRetour);
 	}
 
 }
