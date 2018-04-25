@@ -4,10 +4,10 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,9 +22,9 @@ public class Family {
 	private long id;
 	@Column(name = "FAMILY_NAME")
 	private String name;
-	@OneToMany(mappedBy="family")    
+	@OneToMany(mappedBy="family", fetch = FetchType.LAZY)
 	private Set<Member> members;
-	
+
 	/**
 	 * default
 	 */
@@ -32,54 +32,70 @@ public class Family {
 		super();
 	}
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @param name
 	 */
-	public Family(long id, String name) {
+	public Family(final long id, final String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param name
 	 */
-	public Family(String name) {
+	public Family(final String name) {
 		super();
 		this.name = name;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
 	/**
-	 * 
-	 * @param id the id to set
+	 *
+	 * @return the list of member in the family
 	 */
-	public void setId(long id) {
-		this.id = id;
-	}
+	/*public Set<Member> getMembers() {
+		return members;
+	}*/
 	/**
-	 * 
+	 *
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * 
+	 *
+	 * @param id the id to set
+	 */
+	public void setId(final long id) {
+		this.id = id;
+	}
+
+	/**
+	 *
+	 * @param members set the list of member of the family
+	 */
+	public void setMembers(final Set<Member> members) {
+		this.members = members;
+	}
+
+	/**
+	 *
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * tostring
 	 */
@@ -88,21 +104,5 @@ public class Family {
 		return "Family [id=" + id + ", name=" + name + "]";
 	}
 
-	/**
-	 * 
-	 * @return the list of member in the family
-	 */
-	public Set<Member> getMembers() {
-		return members;
-	}
 
-	/**
-	 * 
-	 * @param members set the list of member of the family
-	 */
-	public void setMembers(Set<Member> members) {
-		this.members = members;
-	}
-	
-	
 }

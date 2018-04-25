@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.coachingdigital.foodstorm.bean.SignInBean;
 import fr.coachingdigital.foodstorm.model.Member;
 import fr.coachingdigital.foodstorm.service.AuthService;
 import fr.coachingdigital.foodstorm.service.MemberService;
@@ -26,7 +27,9 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/sign-in", method= RequestMethod.POST)
-	public ResponseEntity<Member> login(@RequestBody final String login, @RequestBody final String password) {
+	public ResponseEntity<Member> login(@RequestBody final SignInBean signInBean) {
+		final String login = signInBean.getLogin();
+		final String password = signInBean.getPassword();
 		String token = null;
 		HttpStatus statutRetour = HttpStatus.OK;
 		Member member = null;
