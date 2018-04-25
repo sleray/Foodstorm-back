@@ -43,6 +43,8 @@ public class Ingredient implements Serializable{
 	private TypeIngredient type;
 	@ManyToMany(cascade = CascadeType.MERGE,fetch=FetchType.EAGER)
     @JoinTable(name = "INGREDIENT_GROUP_INGREDIENT")
+	private String imageUrl;
+	@Column(name = "INGR_IMAGE_URL")
 	private Set<GroupIngredient> groups;
 
 	/**
@@ -55,22 +57,25 @@ public class Ingredient implements Serializable{
 	 * @param id
 	 * @param name
 	 * @param type
+	 * @param imageUrl
 	 */
-	public Ingredient(long id, String name, TypeIngredient type) {
+	public Ingredient(long id, String name, TypeIngredient type, String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
+		this.imageUrl = imageUrl;
 	}
 	/**
 	 * @param name
 	 * @param type
 	 */
-	public Ingredient(String name, TypeIngredient type) {
+	public Ingredient(String name, TypeIngredient type, String imageUrl) {
 		super();
 
 		this.name = name;
 		this.type = type;
+		this.imageUrl = imageUrl;
 	}
 	/**
 	 * @return the id
@@ -107,6 +112,20 @@ public class Ingredient implements Serializable{
 	 */
 	public void setType(TypeIngredient type) {
 		this.type = type;
+	}
+	/**
+	 * 
+	 * @return the imageUrl
+	 */
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	/**
+	 * 
+	 * @param imageUrl to set
+	 */
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	/**
 	 * tostring
