@@ -1,6 +1,5 @@
 package fr.coachingdigital.foodstorm.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +19,7 @@ import javax.persistence.Table;
 @Table(name="MEMBER")
 public class Member {
 
-	private static final long serialVersionUID = 2492923586519001757L;	
+	private static final long serialVersionUID = 2492923586519001757L;
 	@Id
 	@Column(name = "MBR_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,26 +34,28 @@ public class Member {
 	@JoinColumn(name="MBR_FAMILY_ID", nullable = false)
 	private Family family;
 	@ManyToMany(cascade = CascadeType.MERGE,fetch=FetchType.EAGER)
-    @JoinTable(name = "MEMBER_ROLE")
+	@JoinTable(name = "MEMBER_ROLE")
 	private Set<Role> roles;
 
-	
+	private String token;
+
+
 	/**
 	 * default
 	 */
 	public Member() {
 		super();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @param login
 	 * @param passwd
 	 * @param mail
 	 * @param family
 	 */
-	public Member(long id, String login, String passwd, String mail, Family family, Set<Role> roles) {
+	public Member(final long id, final String login, final String passwd, final String mail, final Family family, final Set<Role> roles) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -63,15 +64,15 @@ public class Member {
 		this.family = family;
 		this.roles = roles;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param login
 	 * @param passwd
 	 * @param mail
 	 * @param family
 	 */
-	public Member(String login, String passwd, String mail, Family family, Set<Role> roles) {
+	public Member(final String login, final String passwd, final String mail, final Family family, final Set<Role> roles) {
 		super();
 		this.login = login;
 		this.passwd = passwd;
@@ -80,102 +81,117 @@ public class Member {
 		this.roles = roles;
 	}
 	/**
-	 * 
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-	/**
-	 * 
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-	/**
-	 * 
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
-	/**
-	 * 
-	 * @param login the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	/**
-	 * 
-	 * @return the password
-	 */
-	public String getPasswd() {
-		return passwd;
-	}
-	/**
-	 * 
-	 * @param passwd the password to set
-	 */
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
-	/**
-	 * 
-	 * @return the mail
-	 */
-	public String getMail() {
-		return mail;
-	}
-	/**
-	 * 
-	 * @param mail the mail to set
-	 */
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	/**
-	 * 
+	 *
 	 * @return the family
 	 */
 	public Family getFamily() {
 		return family;
 	}
 	/**
-	 * 
-	 * @param family the family to set
+	 *
+	 * @return the id
 	 */
-	public void setFamily(Family family) {
-		this.family = family;
-	}
-	
-	/**
-	 * tostring
-	 */
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", login=" + login + ", passwd=" + passwd + ", mail=" + mail + 
-				", family=" + family + ", roles=" + roles + "]";
+	public long getId() {
+		return id;
 	}
 	/**
-	 * 
+	 *
+	 * @return the login
+	 */
+	public String getLogin() {
+		return login;
+	}
+	/**
+	 *
+	 * @return the mail
+	 */
+	public String getMail() {
+		return mail;
+	}
+	/**
+	 *
+	 * @return the password
+	 */
+	public String getPasswd() {
+		return passwd;
+	}
+	/**
+	 *
 	 * @return the set of role
 	 */
 	public Set<Role> getRoles() {
 		return roles;
 	}
+	/**
+	 *
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+	/**
+	 *
+	 * @param family the family to set
+	 */
+	public void setFamily(final Family family) {
+		this.family = family;
+	}
+	/**
+	 *
+	 * @param id the id to set
+	 */
+	public void setId(final long id) {
+		this.id = id;
+	}
+	/**
+	 *
+	 * @param login the login to set
+	 */
+	public void setLogin(final String login) {
+		this.login = login;
+	}
 
 	/**
-	 * 
+	 *
+	 * @param mail the mail to set
+	 */
+	public void setMail(final String mail) {
+		this.mail = mail;
+	}
+	/**
+	 *
+	 * @param passwd the password to set
+	 */
+	public void setPasswd(final String passwd) {
+		this.passwd = passwd;
+	}
+
+	/**
+	 *
 	 * @param roles the set or role to set
 	 */
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(final Set<Role> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
-	
+
+	/**
+	 *
+	 * @param token the token to set
+	 */
+	public void setToken(final String token) {
+		this.token = token;
+	}
+	/**
+	 * tostring
+	 */
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", login=" + login + ", passwd=" + passwd + ", mail=" + mail +
+				", family=" + family + ", roles=" + roles + "]";
+	}
+
+
+
+
+
 }
