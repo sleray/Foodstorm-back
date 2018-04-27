@@ -43,9 +43,10 @@ public class Ingredient implements Serializable{
 	private TypeIngredient type;
 	@ManyToMany(cascade = CascadeType.MERGE,fetch=FetchType.EAGER)
     @JoinTable(name = "INGREDIENT_GROUP_INGREDIENT")
-	private String imageUrl;
+	private Set<GroupIngredient> groups;	
 	@Column(name = "INGR_IMAGE_URL")
-	private Set<GroupIngredient> groups;
+	private String imageUrll;
+	
 
 	/**
 	 * default
