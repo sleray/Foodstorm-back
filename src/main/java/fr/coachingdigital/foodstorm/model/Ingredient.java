@@ -45,7 +45,7 @@ public class Ingredient implements Serializable{
     @JoinTable(name = "INGREDIENT_GROUP_INGREDIENT")
 	private Set<GroupIngredient> groups;	
 	@Column(name = "INGR_IMAGE_URL")
-	private String imageUrll;
+	private String imageUrl;
 	
 
 	/**
