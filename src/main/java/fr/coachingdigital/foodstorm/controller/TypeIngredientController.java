@@ -48,8 +48,11 @@ public class TypeIngredientController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<TypeIngredient> addTypeIngredient(@RequestBody TypeIngredient typeIngredient) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		//To allow localhost to access data from stagging or prod.
+		responseHeaders.set("Access-Control-Allow-Origin", "*");
 		TypeIngredient result = typeIngredientService.addTypeIngredient(typeIngredient);
-		return new ResponseEntity<TypeIngredient>(result, HttpStatus.CREATED);
+		return new ResponseEntity<TypeIngredient>(result, responseHeaders,HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/", method= RequestMethod.PUT)
