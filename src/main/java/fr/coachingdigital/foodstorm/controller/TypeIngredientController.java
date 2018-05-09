@@ -1,8 +1,9 @@
 package fr.coachingdigital.foodstorm.controller;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,12 +26,17 @@ public class TypeIngredientController {
 	}
 
 	@RequestMapping(value = "/", method= RequestMethod.GET)
-	public Collection<TypeIngredient> getAllTypeIngredients() {
-		return typeIngredientService.getAllTypeIngredients();
+	public ResponseEntity<List<TypeIngredient>> getAllTypeIngredients() {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		//To allow localhost to access data from stagging or prod.
+		responseHeaders.set("Access-Control-Allow-Origin", "*");
+		return new ResponseEntity<List<TypeIngredient>>(typeIngredientService.getAllTypeIngredients(), responseHeaders,HttpStatus.OK);
+
 	}
 
 	@RequestMapping(value = "/{id}", method= RequestMethod.GET)
 	public ResponseEntity<TypeIngredient> getTypeIngredient(@PathVariable("id") Long id) {
+		
 		Optional<TypeIngredient> result = typeIngredientService.getTypeIngredientById(id);
 		if (result.isPresent()) {
 			return new ResponseEntity<TypeIngredient>(result.get(), HttpStatus.FOUND);

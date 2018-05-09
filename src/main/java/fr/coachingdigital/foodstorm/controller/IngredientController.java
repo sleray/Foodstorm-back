@@ -38,8 +38,6 @@ public class IngredientController {
 		} else {
 			return new ResponseEntity<Ingredient>( HttpStatus.NOT_FOUND);
 		}
-
-
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
