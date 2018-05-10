@@ -55,7 +55,7 @@ public class TypeIngredientController {
 		responseHeaders.set("Access-Control-Allow-headers", "Content-Type,Accept");
 		TypeIngredient result = typeIngredientService.addTypeIngredient(typeIngredient);
 		return new ResponseEntity<TypeIngredient>(result, responseHeaders,HttpStatus.CREATED);
-	}
+	}/*
 	// Answer to the preflight CORS request that all is allowed cross domain (free donuts !)
 	@RequestMapping(value = "/", method = RequestMethod.OPTIONS)
 	public ResponseEntity<String> handleCORS() {
@@ -65,7 +65,7 @@ public class TypeIngredientController {
 		responseHeaders.set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
 		responseHeaders.set("Access-Control-Allow-headers", "Content-Type,Accept");
 		return new ResponseEntity<String>("Donuts ", responseHeaders,HttpStatus.OK);
-	}
+	}*/
 
 	@RequestMapping(value = "/", method= RequestMethod.PUT)
 	public ResponseEntity<TypeIngredient> updateTypeIngredient(TypeIngredient typeIngredient) {
