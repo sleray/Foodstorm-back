@@ -51,6 +51,8 @@ public class TypeIngredientController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		//To allow localhost to access data from stagging or prod.
 		responseHeaders.set("Access-Control-Allow-Origin", "*");
+		responseHeaders.set("Access-Control-Allow-Methods", "POST");
+		responseHeaders.set("Access-Control-Allow-headers", "Content-Type,Accept");
 		TypeIngredient result = typeIngredientService.addTypeIngredient(typeIngredient);
 		return new ResponseEntity<TypeIngredient>(result, responseHeaders,HttpStatus.CREATED);
 	}
