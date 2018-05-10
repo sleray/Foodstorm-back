@@ -27,10 +27,10 @@ public class TypeIngredientController {
 
 	@RequestMapping(value = "/", method= RequestMethod.GET)
 	public ResponseEntity<List<TypeIngredient>> getAllTypeIngredients() {
-		HttpHeaders responseHeaders = new HttpHeaders();
+		//HttpHeaders responseHeaders = new HttpHeaders();
 		//To allow localhost to access data from stagging or prod.
-		responseHeaders.set("Access-Control-Allow-Origin", "*");
-		return new ResponseEntity<List<TypeIngredient>>(typeIngredientService.getAllTypeIngredients(), responseHeaders,HttpStatus.OK);
+		//responseHeaders.set("Access-Control-Allow-Origin", "*");
+		return new ResponseEntity<List<TypeIngredient>>(typeIngredientService.getAllTypeIngredients(),HttpStatus.OK);
 
 	}
 
@@ -48,13 +48,13 @@ public class TypeIngredientController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<TypeIngredient> addTypeIngredient(@RequestBody TypeIngredient typeIngredient) {
-		HttpHeaders responseHeaders = new HttpHeaders();
+		/*HttpHeaders responseHeaders = new HttpHeaders();
 		//To allow localhost to access data from stagging or prod.
 		responseHeaders.set("Access-Control-Allow-Origin", "*");
 		responseHeaders.set("Access-Control-Allow-Methods", "POST");
-		responseHeaders.set("Access-Control-Allow-headers", "Content-Type,Accept");
+		responseHeaders.set("Access-Control-Allow-headers", "Content-Type,Accept");*/
 		TypeIngredient result = typeIngredientService.addTypeIngredient(typeIngredient);
-		return new ResponseEntity<TypeIngredient>(result, responseHeaders,HttpStatus.CREATED);
+		return new ResponseEntity<TypeIngredient>(result,HttpStatus.CREATED);
 	}/*
 	// Answer to the preflight CORS request that all is allowed cross domain (free donuts !)
 	@RequestMapping(value = "/", method = RequestMethod.OPTIONS)
