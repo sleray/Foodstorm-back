@@ -26,7 +26,7 @@ import fr.coachingdigital.foodstorm.tool.AuthTool;
 @Service
 public class AuthService {
 
-	public static String ISSUER = "foodstorm";
+	public static final String ISSUER = "foodstorm";
 	/**
 	 * Key private for encryption
 	 */
@@ -47,8 +47,8 @@ public class AuthService {
 	 * Method to generate a token with default values
 	 * @return the token encoded
 	 */
-	public String generateToken() {;
-	return generateToken(Instant.now(), Duration.ofMinutes(30));
+	public String generateToken() {
+		return generateToken(Instant.now(), Duration.ofMinutes(30));
 	}
 
 	/**

@@ -30,12 +30,12 @@ public class AuthTool {
 		try (DataInputStream dis = new DataInputStream(new FileInputStream(privateKey));) {
 
 			final byte[] privKeyBytes = new byte[(int) privateKey.length()];
-			dis.read(privKeyBytes);
+			dis.readFully(privKeyBytes);
 			final KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			final PKCS8EncodedKeySpec privSpec = new PKCS8EncodedKeySpec(privKeyBytes);
 			privKey = (RSAPrivateKey) keyFactory.generatePrivate(privSpec);
 		} catch (final IOException |NoSuchAlgorithmException |InvalidKeySpecException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return privKey;
 	}
@@ -55,7 +55,7 @@ public class AuthTool {
 			pubKey = (RSAPublicKey) keyFactory.generatePublic(pubSpec);
 
 		} catch (final IOException |NoSuchAlgorithmException |InvalidKeySpecException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 
 		}
 		return pubKey;
