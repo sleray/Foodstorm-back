@@ -35,7 +35,7 @@ public class TypeIngredientController {
 		
 		Optional<TypeIngredient> result = typeIngredientService.getTypeIngredientById(id);
 		if (result.isPresent()) {
-			return new ResponseEntity<TypeIngredient>(result.get(), HttpStatus.FOUND);
+			return new ResponseEntity<TypeIngredient>(result.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<TypeIngredient>(HttpStatus.NOT_FOUND);
 		}
