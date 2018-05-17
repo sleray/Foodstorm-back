@@ -49,7 +49,7 @@ public class TypeIngredientController {
 	}
 
 	@RequestMapping(value = "/", method= RequestMethod.PUT)
-	public ResponseEntity<TypeIngredient> updateTypeIngredient(TypeIngredient typeIngredient) {
+	public ResponseEntity<TypeIngredient> updateTypeIngredient(@RequestBody  TypeIngredient typeIngredient) {
 		TypeIngredient result = typeIngredientService.updateTypeIngredient(typeIngredient);
 		return new ResponseEntity<TypeIngredient>(result, HttpStatus.OK);
 	}
