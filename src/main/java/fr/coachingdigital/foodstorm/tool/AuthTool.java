@@ -27,62 +27,45 @@ public class AuthTool {
 	 */
 	public static RSAPrivateKey generatePrivateKey(final File privateKey) {
 		RSAPrivateKey privKey = null;
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(new FileInputStream(privateKey));
+		try (DataInputStream dis = new DataInputStream(new FileInputStream(privateKey));) {
+
 			final byte[] privKeyBytes = new byte[(int) privateKey.length()];
-			dis.read(privKeyBytes);
+			dis.readFully(privKeyBytes);
 			final KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			final PKCS8EncodedKeySpec privSpec = new PKCS8EncodedKeySpec(privKeyBytes);
 			privKey = (RSAPrivateKey) keyFactory.generatePrivate(privSpec);
-		} catch (final IOException e) {
-			e.printStackTrace();
-		} catch (final NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (final InvalidKeySpecException e) {
-			e.printStackTrace();
-		}finally {
-			if(dis != null) {
-				try {
-					dis.close();
-				} catch (final IOException e) {
-				}
-			}
+		} catch (final IOException |NoSuchAlgorithmException |InvalidKeySpecException e) {
+			System.err.println(e.getMessage());
 		}
 		return privKey;
 	}
-
 	/**
-	 * Method that generate RSAPublicKey from filr
-	 * @param publicKey the filr representing public key
+	 * Method that generate RSAPublicKey from file
+	 * @param publicKey the file representing public key
 	 * @return the rsa public key
 	 */
 	public static RSAPublicKey generatePublicKey(final File publicKey) {
 		RSAPublicKey pubKey = null;
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(new FileInputStream(publicKey));
+		try (DataInputStream dis = new DataInputStream(new FileInputStream(publicKey));) {
+
 			final byte[] pubKeyBytes = new byte[(int) publicKey.length()];
 			dis.readFully(pubKeyBytes);
 			final KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			final X509EncodedKeySpec pubSpec = new X509EncodedKeySpec(pubKeyBytes);
 			pubKey = (RSAPublicKey) keyFactory.generatePublic(pubSpec);
 
-		} catch (final IOException e) {
-			e.printStackTrace();
-		} catch (final NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (final InvalidKeySpecException e) {
-			e.printStackTrace();
-		}finally {
-			if(dis != null) {
-				try {
-					dis.close();
-				} catch (final IOException e) {
-				}
-			}
+		} catch (final IOException |NoSuchAlgorithmException |InvalidKeySpecException e) {
+			System.err.println(e.getMessage());
+
 		}
 		return pubKey;
+	}
+
+	/**
+	 * Default for sonar complaience
+	 */
+	private AuthTool() {
+
 	}
 
 }
