@@ -49,9 +49,21 @@ public class MenuService {
 		for (GroupIngredient groupIngredient : result) {
 			//Pick one Ingredient by its groupID
 			Ingredient ingredient = ingredientRepository.findRandomByGroup(groupIngredient.getId());
-			//Add it to the menu
-			menu.add(ingredient);	
-			System.out.println(ingredient);
+			if (ingredient != null) {				
+				if (ingredient.getGroups().size() > 1) {
+					// on vide la liste de groupe d'ingrédients liée à cet ingrédient dans le cas où un ingrédient appartient à 2 groupes
+					ingredient.getGroups().clear();
+					ingredient.getGroups().add(groupIngredient);
+				}				
+				//Add it to the menu
+				menu.add(ingredient);	
+				System.out.println(ingredient);
+				
+				
+			}
+				
+			
+			
 		}
 		
 		return menu;
