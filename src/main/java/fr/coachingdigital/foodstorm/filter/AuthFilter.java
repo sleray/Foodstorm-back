@@ -25,6 +25,7 @@ import fr.coachingdigital.foodstorm.service.AuthService;
 public class AuthFilter implements Filter {
 
 	private static String BEARER = "Bearer";
+	private static String AUTH_CONTROLLER = "auth/sign-in";
 
 	@Autowired
 	AuthService authService;
@@ -40,24 +41,28 @@ public class AuthFilter implements Filter {
 
 		final HttpServletRequest httpRequest = (HttpServletRequest) request;
 		final HttpServletResponse httpResponse = (HttpServletResponse) response;
-
+		boolean tokenVerify = true;
 		if(!HttpMethod.OPTIONS.name().equals(httpRequest.getMethod())){
-			final Optional<String> token = Optional.ofNullable(httpRequest.getHeader(HttpHeaders.AUTHORIZATION));
+			final String URL = httpRequest.getRequestURI();
+			if(URL != null && !URL.endsWith(AUTH_CONTROLLER)) {
+				final Optional<String> token = Optional.ofNullable(httpRequest.getHeader(HttpHeaders.AUTHORIZATION));
 
-			boolean tokenVerify = false;
-			if(token.isPresent() && token.get().startsWith(BEARER)) {
+				if(token.isPresent() && token.get().startsWith(BEARER)) {
 
-				final String bearerToken = token.get().substring(BEARER.length()+1);
+					final String bearerToken = token.get().substring(BEARER.length()+1);
 
-				tokenVerify = authService.verifyToken(bearerToken);
+					tokenVerify = authService.verifyToken(bearerToken);
 
-			}
-			if(!tokenVerify) {
-				//	httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				}else{
+					tokenVerify = false;
+				}
 			}
 		}
-
-		chain.doFilter(httpRequest, httpResponse);
+		if(!tokenVerify) {
+			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}else {
+			chain.doFilter(httpRequest, httpResponse);
+		}
 	}
 
 	@Override
